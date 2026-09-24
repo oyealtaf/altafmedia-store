@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop — AltafMedia Store</title>
+<meta name="description" content="Browse all premium PSD templates — thumbnails, social media, flyers, branding and event designs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="site-header"></header>
+
+<div class="page-hero">
+  <div class="container">
+    <span class="eyebrow">All Templates</span>
+    <h1 class="h-section" style="font-size:clamp(30px,4.5vw,44px)">Shop Premium PSDs</h1>
+    <p class="lead" style="margin:0 auto">Search, filter aur sort karein — apna perfect design pack dhundein.</p>
+  </div>
+</div>
+
+<section style="padding-top:20px">
+  <div class="container">
+    <div class="toolbar">
+      <div class="searchbar">
+        <input type="text" id="q" placeholder="Search templates…" aria-label="Search templates">
+        <button class="btn btn-primary btn-sm" id="clearSearch" style="display:none">✕</button>
+      </div>
+      <select class="sort-select" id="sort" aria-label="Sort products">
+        <option value="new">Sort: Newest</option>
+        <option value="low">Price: Low → High</option>
+        <option value="high">Price: High → Low</option>
+      </select>
+    </div>
+    <div class="pills" id="pills"></div>
+    <p class="result-count" id="count"></p>
+    <div class="prod-grid" id="grid" style="margin-top:20px"></div>
+    <div class="empty-state" id="empty" style="display:none">
+      <div class="big">🔍</div>
+      <h3>Kuch nahi mila</h3>
+      <p>Search ya filter change karke dobara try karein.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer"></footer>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/products.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+boot("Shop");
+
+const params = new URLSearchParams(location.search);
+let state = {
+  q: params.get("q") || "",
+  cat: params.get("cat") || "All",
+  sort: "new"
+};
+
+$("#q").value = state.q;
+
+// pills
+function renderPills(){
+  const cats = ["All", ...CATEGORIES];
+  $("#pills").innerHTML = cats.map(c=>
+    `<button class="pill ${state.cat===c?'active':''}" data-cat="${c}">${c}</button>`
+  ).join("");
+  $$("#pills .pill").forEach(b=>b.addEventListener("click", ()=>{
+    state.cat = b.dataset.cat;
+    renderPills(); renderGrid();
+  }));
+}
+
+function filtered(){
+  let list = PRODUCTS.slice();
+  if(state.cat !== "All") list = list.filter(p=>p.category===state.cat);
+  if(state.q){
+    const q = state.q.toLowerCase();
+    list = list.filter(p => (p.title+" "+p.short+" "+p.category+" "+(p.description||"")).toLowerCase().includes(q));
+  }
+  if(state.sort==="low") list.sort((a,b)=>a.price-b.price);
+  else if(state.sort==="high") list.sort((a,b)=>b.price-a.price);
+  else list.sort((a,b)=>PRODUCTS.indexOf(b)-PRODUCTS.indexOf(a)); // newest = last added
+  return list;
+}
+
+function renderGrid(){
+  const list = filtered();
+  $("#grid").innerHTML = list.map(productCard).join("");
+  $("#empty").style.display = list.length ? "none" : "block";
+  $("#count").textContent = list.length + " template" + (list.length!==1?"s":"") + " found";
+  $("#clearSearch").style.display = state.q ? "inline-flex" : "none";
+}
+
+let deb;
+$("#q").addEventListener("input", e=>{
+  clearTimeout(deb);
+  deb = setTimeout(()=>{ state.q = e.target.value.trim(); renderGrid(); }, 120);
+});
+$("#clearSearch").addEventListener("click", ()=>{ state.q=""; $("#q").value=""; renderGrid(); });
+$("#sort").addEventListener("change", e=>{ state.sort = e.target.value; renderGrid(); });
+
+renderPills();
+renderGrid();
+</script>
+</body>
+</html>

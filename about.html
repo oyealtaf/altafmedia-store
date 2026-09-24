@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — AltafMedia Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="site-header"></header>
+
+<div class="page-hero">
+  <div class="container">
+    <span class="eyebrow gold">✦ Our Story</span>
+    <h1 class="h-section" style="font-size:clamp(30px,4.5vw,44px)">About AltafMedia Store</h1>
+  </div>
+</div>
+
+<section style="padding-top:30px">
+  <div class="container">
+    <div class="prose">
+      <p><b>AltafMedia Store</b> Pakistan ke creators, designers, photographers aur small businesses ke liye premium PSD templates ka online store hai. Hamara maqsad simple hai: <b>professional-quality designs, munasib qeematon par, asaan tareeqe se.</b></p>
+      <h3>🎨 Kya milta hai?</h3>
+      <ul>
+        <li><b>Fully-layered PSD files</b> — har text, shape aur effect alag organized layer par.</li>
+        <li>YouTube thumbnails, Instagram posts, flyers, menus, wedding albums, event posters aur branding mockups.</li>
+        <li>Print-ready files (CMYK, 300 DPI jahan zaroori) aur social-media sizes.</li>
+      </ul>
+      <h3>⚡ Delivery kaise hoti hai?</h3>
+      <p>Koi account banane ya app download karne ki zaroorat nahi. Order karein, JazzCash / Easypaisa / bank transfer / Binance Pay se payment bhejein, WhatsApp par confirm karein — payment verify hote hi <b>ZIP files aap ke WhatsApp par</b> bhej di jati hain.</p>
+      <h3>🤝 Hamara waada</h3>
+      <ul>
+        <li>Jo preview mein dikhaya gaya hai, wahi files mein milega — no surprises.</li>
+        <li>Koi masla ho to WhatsApp par direct human support.</li>
+        <li>Seedhi-saadi policy: <a href="terms.html" style="color:var(--brand);font-weight:700">Terms & Refund Policy parhein →</a></li>
+      </ul>
+    </div>
+
+    <div id="contact" style="margin-top:50px">
+      <div class="center">
+        <span class="eyebrow">Get In Touch</span>
+        <h2 class="h-section">Contact Us</h2>
+        <p class="lead" style="margin:0 auto">Order, license ya kisi bhi sawal ke liye rabta karein.</p>
+      </div>
+      <div class="contact-cards">
+        <a class="contact-card" id="waCard" target="_blank" rel="noopener">
+          <div class="emoji">💬</div><b>WhatsApp</b><p>Fastest reply — order support aur general sawalat ke liye.</p>
+        </a>
+        <div class="contact-card">
+          <div class="emoji">🕙</div><b>Support Hours</b><p>Monday – Saturday<br>10:00 AM – 8:00 PM (PKT)</p>
+        </div>
+        <div class="contact-card">
+          <div class="emoji">💳</div><b>Payments</b><p>JazzCash · Easypaisa<br>Bank Transfer · Binance Pay</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer"></footer>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/products.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+boot("About");
+$("#waCard").href = "https://api.whatsapp.com/send?phone=" + STORE.whatsapp +
+  "&text=" + encodeURIComponent("Assalam-o-Alaikum! Mujhe AltafMedia Store ke baare mein maloomat chahiye.");
+</script>
+</body>
+</html>

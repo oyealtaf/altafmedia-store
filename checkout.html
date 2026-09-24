@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — AltafMedia Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="site-header"></header>
+
+<div class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Almost Done</span>
+    <h1 class="h-section" style="font-size:clamp(30px,4.5vw,44px)">Checkout</h1>
+    <p class="lead" style="margin:0 auto">Details likhein, payment method chunein — order turant ban jayega.</p>
+  </div>
+</div>
+
+<section style="padding-top:24px">
+  <div class="container">
+    <div class="check-layout" id="checkWrap"></div>
+  </div>
+</section>
+
+<footer class="site-footer"></footer>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/products.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+boot("Shop");
+
+const P = STORE.payments;
+const payMeta = {
+  jazzcash: { title: P.jazzcash.title, num: P.jazzcash.number, acc: "Account title: " + P.jazzcash.accountName },
+  easypaisa:{ title: P.easypaisa.title, num: P.easypaisa.number, acc: "Account title: " + P.easypaisa.accountName },
+  bank:     { title: P.bank.title, num: "IBAN: " + P.bank.iban, acc: P.bank.bankName + " — " + P.bank.accountTitle },
+  binancepay:{ title: P.binancepay.title, num: "Pay ID: " + P.binancepay.payId, acc: "USDT only — Binance Pay app se send karein (" + P.binancepay.accountName + ")" }
+};
+
+function render(){
+  const items = Cart.items();
+  if(!items.length){
+    $("#checkWrap").innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+      <div class="big">🛒</div><h3>Cart khaali hai</h3>
+      <a href="shop.html" class="btn btn-primary" style="margin-top:18px">Browse Templates →</a></div>`;
+    return;
+  }
+  const sub = Cart.subtotal();
+  $("#checkWrap").innerHTML = `
+  <div class="form-card">
+    <h3>👤 Your Details</h3>
+    <div class="field" id="fName"><label>Full Name *</label><input id="inName" placeholder="e.g. Ahmed Khan"><div class="err">Apna naam likhein</div></div>
+    <div class="field" id="fPhone"><label>Phone / WhatsApp Number *</label><input id="inPhone" inputmode="tel" placeholder="e.g. 0341 7774924"><div class="err">Sahi phone number likhein (kam az kam 10 digits)</div></div>
+    <div class="field" id="fEmail"><label>Email (optional)</label><input id="inEmail" inputmode="email" placeholder="you@example.com"><div class="err">Sahi email likhein</div></div>
+
+    <h3 style="margin-top:30px">💳 Payment Method</h3>
+    <div id="payOpts">
+      ${Object.keys(payMeta).map((k,i)=>`
+      <label class="pay-option ${i===0?'selected':''}">
+        <input type="radio" name="pay" value="${k}" ${i===0?'checked':''}>
+        <div><b>${payMeta[k].title}</b><div class="num">${payMeta[k].num}</div><div class="acc">${payMeta[k].acc}</div></div>
+      </label>`).join("")}
+    </div>
+    <div class="note-box">📌 <b>Note:</b> Order place karne ke baad agle page par payment instructions milengi. Exact amount upar diye gaye number par send karna hoga, phir WhatsApp par confirm karein — ${STORE.supportNote}</div>
+    <button class="btn btn-primary btn-block" id="placeOrder" style="font-size:17px;padding:17px">Place Order →</button>
+  </div>
+  <div class="cart-summary">
+    <h3 style="margin-bottom:16px">Order Summary</h3>
+    <div class="order-lines">
+      ${items.map(i=>{ const p=getProduct(i.id); if(!p) return "";
+        return `<div class="order-line"><img src="${p.previews[0]}" alt="">
+          <span class="t">${p.title}<br><span class="q">Qty: ${i.qty}</span></span>
+          <b>${fmt(p.price*i.qty)}</b></div>`; }).join("")}
+    </div>
+    <div class="sum-row"><span>Subtotal</span><span>${fmt(sub)}</span></div>
+    <div class="sum-row"><span>Delivery</span><span style="color:var(--green);font-weight:700">WhatsApp — Free</span></div>
+    <div class="sum-row total"><span>Total</span><span>${fmt(sub)}</span></div>
+  </div>`;
+
+  $$("#payOpts .pay-option").forEach(l=>l.addEventListener("click", ()=>{
+    $$("#payOpts .pay-option").forEach(x=>x.classList.remove("selected"));
+    l.classList.add("selected");
+  }));
+
+  $("#placeOrder").addEventListener("click", ()=>{
+    const name = $("#inName").value.trim();
+    const phone = $("#inPhone").value.replace(/\D/g,"");
+    const email = $("#inEmail").value.trim();
+    let ok = true;
+    const mark = (id, bad)=>{ $(id).classList.toggle("invalid", bad); if(bad) ok=false; };
+    mark("#fName", name.length < 3);
+    mark("#fPhone", phone.length < 10);
+    mark("#fEmail", email !== "" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+    if(!ok){ toast("Please apni details durust karein"); return; }
+
+    const payKey = $('input[name="pay"]:checked').value;
+    const order = {
+      id: orderId(),
+      name, phone: $("#inPhone").value.trim(), email,
+      payKey, payTitle: payMeta[payKey].title, payNum: payMeta[payKey].num,
+      items: items.map(i=>{ const p=getProduct(i.id); return {id:p.id, title:p.title, price:p.price, qty:i.qty, img:p.previews[0]}; }),
+      total: sub,
+      date: new Date().toLocaleString("en-PK")
+    };
+    localStorage.setItem("am_last_order", JSON.stringify(order));
+    Cart.clear();
+    location.href = "success.html";
+  });
+}
+render();
+</script>
+</body>
+</html>

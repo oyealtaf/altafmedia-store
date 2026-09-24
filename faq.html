@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — AltafMedia Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="site-header"></header>
+
+<div class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Help Center</span>
+    <h1 class="h-section" style="font-size:clamp(30px,4.5vw,44px)">Frequently Asked Questions</h1>
+    <p class="lead" style="margin:0 auto">Aksar pooche jane wale sawalat ke jawab.</p>
+  </div>
+</div>
+
+<section style="padding-top:30px">
+  <div class="container">
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q">Order kaise karun?<span class="chev">▼</span></button><div class="faq-a"><p>Product select karein → "Buy Now" ya "Add to Cart" dabayein → Checkout par naam aur WhatsApp number likhein → payment method chunein → "Place Order". Agle page par payment instructions aur WhatsApp confirm button milega.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Payment kaise karun?<span class="chev">▼</span></button><div class="faq-a"><p>Order confirm page par aap ko JazzCash / Easypaisa / Bank / Binance Pay details milengi. Exact amount (Binance Pay par Rs total ke barabar USDT) send karein, screenshot save karein, phir "Confirm on WhatsApp" daba kar screenshot bhej dein.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Files kab aur kaise milengi?<span class="chev">▼</span></button><div class="faq-a"><p>Payment verify hote hi — usually support hours mein kuch hi ghanton ke andar — ZIP files directly aap ke WhatsApp number par bhej di jati hain.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Kya mujhe Photoshop aana zaroori hai?<span class="chev">▼</span></button><div class="faq-a"><p>Basic Photoshop kaafi hai. Files fully layered aur organized hain: text par double-click karke badlein, photos drag-and-drop se replace karein. Har pack mein used fonts ki list bhi hoti hai.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Kya main designs ko client ke kaam mein use kar sakta hun?<span class="chev">▼</span></button><div class="faq-a"><p>Ji haan — personal aur commercial dono use allowed hai, unlimited projects ke liye. Bas source PSD files ko dobara bechna, share karna ya free distribute karna allowed nahi.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Kaun se Photoshop version ki zaroorat hai?<span class="chev">▼</span></button><div class="faq-a"><p>Adobe Photoshop CC 2020 ya newer recommended hai. Har product page ke "File Details" tab mein exact requirements likhi hoti hain.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Refund policy kya hai?<span class="chev">▼</span></button><div class="faq-a"><p>Digital products hone ki wajah se files deliver hone ke baad refund nahi hota. Agar ghalat/corrupt file mili ya wahi product na mila jo preview mein tha, to replacement ya refund diya jata hai. <a href="terms.html" style="color:var(--brand);font-weight:700">Full policy →</a></p></div></div>
+      <div class="faq-item"><button class="faq-q">Kya main apne brand ka naam/logo add kar sakta hun?<span class="chev">▼</span></button><div class="faq-a"><p>Bilkul — isi liye files fully layered hain. Apna logo, naam, number aur colors asani se laga sakte hain.</p></div></div>
+    </div>
+    <div class="center" style="margin-top:36px">
+      <p class="lead" style="margin-bottom:18px">Aur koi sawal? Direct poochein:</p>
+      <a class="btn btn-whatsapp" id="faqWa" target="_blank" rel="noopener">💬 WhatsApp par Poochein</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer"></footer>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/products.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+boot("FAQ");
+$("#faqWa").href = "https://api.whatsapp.com/send?phone=" + STORE.whatsapp +
+  "&text=" + encodeURIComponent("Assalam-o-Alaikum! Mujhe AltafMedia Store ke baare mein sawal hai.");
+</script>
+</body>
+</html>

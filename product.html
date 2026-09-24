@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product — AltafMedia Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="site-header"></header>
+
+<div class="container">
+  <p class="crumb"><a href="index.html">Home</a> / <a href="shop.html">Shop</a> / <span id="crumbTitle">Product</span></p>
+  <div class="prod-layout" id="prodLayout"></div>
+
+  <div class="tabs">
+    <div class="tab-btns">
+      <button class="tab-btn active" data-tab="tabDesc">Description</button>
+      <button class="tab-btn" data-tab="tabDetails">File Details</button>
+      <button class="tab-btn" data-tab="tabLicense">License & Terms</button>
+    </div>
+    <div class="tab-panel active" id="tabDesc"></div>
+    <div class="tab-panel" id="tabDetails"></div>
+    <div class="tab-panel" id="tabLicense">
+      <h3 style="margin-bottom:12px">Simple, honest license</h3>
+      <ul>
+        <li><b>Personal & commercial use allowed</b> — apne ya client ke projects mein unlimited use karein.</li>
+        <li><b>Resale / redistribution not allowed</b> — source PSD files ko dobara bechna, share karna ya free mein distribute karna mana hai.</li>
+        <li><b>One buyer, one license</b> — files sirf khareedne wale ke use ke liye hain.</li>
+        <li><b>No refund after delivery</b> — digital product hone ki wajah se files milne ke baad refund nahi hota. <a href="terms.html" style="color:var(--brand);font-weight:700">Full policy parhein →</a></li>
+      </ul>
+      <p style="margin-top:12px;color:var(--muted)">Koi confusion ho to khareedne se pehle <a href="https://api.whatsapp.com/send?phone=" id="licWa" target="_blank" rel="noopener" style="color:var(--brand);font-weight:700">WhatsApp par pooch lein</a> — khushi se guide karenge.</p>
+    </div>
+  </div>
+
+  <section class="related" style="padding-top:40px">
+    <h2 class="h-section">Related Templates</h2>
+    <div class="prod-grid" id="relatedGrid" style="margin-top:24px"></div>
+  </section>
+
+  <section style="padding-top:20px">
+    <div class="center">
+      <span class="eyebrow">Quick Answers</span>
+      <h2 class="h-section">Before You Buy</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q">Files kaise milengi?<span class="chev">▼</span></button><div class="faq-a"><p>Payment verify hone ke baad ZIP file aap ke WhatsApp par bhej di jati hai — usually kuch hi ghanton mein.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Kya main ise client ke kaam mein use kar sakta hun?<span class="chev">▼</span></button><div class="faq-a"><p>Ji haan — personal aur commercial dono use allowed hai. Bas source files ko dobara bechna ya share karna allowed nahi.</p></div></div>
+    </div>
+  </section>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="close" aria-label="Close">✕</button>
+  <img id="lightboxImg" src="" alt="Preview">
+</div>
+
+<footer class="site-footer"></footer>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/products.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+boot("Shop");
+
+const id = new URLSearchParams(location.search).get("id");
+const p = getProduct(id);
+
+if(!p){
+  $("#prodLayout").innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="big">😕</div><h3>Product nahi mila</h3><p><a href="shop.html" class="btn btn-primary" style="margin-top:14px">Back to Shop</a></p></div>`;
+} else {
+  document.title = p.title + " — AltafMedia Store";
+  $("#crumbTitle").textContent = p.title;
+  const disc = p.oldPrice ? Math.round((1 - p.price/p.oldPrice)*100) : 0;
+  let qty = 1;
+
+  $("#prodLayout").innerHTML = `
+    <div>
+      <div class="gallery-main" onclick="openLightbox('${p.previews[0]}')">
+        <img id="mainImg" src="${p.previews[0]}" alt="${p.title}">
+      </div>
+      <div class="gallery-thumbs">
+        ${p.previews.map((src,i)=>`<img src="${src}" class="${i===0?'active':''}" data-src="${src}" alt="Preview ${i+1}">`).join("")}
+      </div>
+    </div>
+    <div class="prod-info">
+      <span class="card-cat">${p.category}</span>
+      <h1>${p.title}</h1>
+      <p class="lead" style="font-size:16px">${p.short}</p>
+      <div class="prod-price-row">
+        <span class="prod-price">${fmt(p.price)}${p.oldPrice?`<span class="old">${fmt(p.oldPrice)}</span>`:""}</span>
+        ${disc?`<span class="save-tag">Save ${disc}%</span>`:""}
+      </div>
+      <div class="prod-badges">
+        ${p.badge?`<span class="pbadge gold">✦ ${p.badge}</span>`:""}
+        <span class="pbadge">⚡ Fast WhatsApp delivery</span>
+        <span class="pbadge">🎨 Fully layered PSD</span>
+      </div>
+      <div class="qty-row">
+        <div class="qty">
+          <button id="qMinus" aria-label="Decrease">−</button><span id="qVal">1</span><button id="qPlus" aria-label="Increase">+</button>
+        </div>
+        <span style="color:var(--muted);font-size:14px">Quantity</span>
+      </div>
+      <div class="buy-row">
+        <button class="btn btn-primary" id="buyNow">Buy Now →</button>
+        <button class="btn btn-outline" id="addCart">Add to Cart</button>
+      </div>
+      <div class="meta-list">
+        <span>📁 <b>Format:</b> ${p.details.format} (ZIP download)</span>
+        <span>📐 <b>Size:</b> ${p.details.dimensions}</span>
+        <span>💳 <b>Payment:</b> JazzCash / Easypaisa / Bank transfer</span>
+        <span>💬 <b>Delivery:</b> WhatsApp par payment verify hone ke baad</span>
+      </div>
+    </div>`;
+
+  $("#tabDesc").innerHTML = p.description;
+  $("#tabDetails").innerHTML = `<table class="spec-table">
+    <tr><td>File format</td><td>${p.details.format}</td></tr>
+    <tr><td>Dimensions</td><td>${p.details.dimensions}</td></tr>
+    <tr><td>Layers</td><td>${p.details.layers}</td></tr>
+    <tr><td>Download size</td><td>${p.details.fileSize}</td></tr>
+    <tr><td>Software needed</td><td>Adobe Photoshop CC 2020 or newer</td></tr>
+    <tr><td>Delivery</td><td>ZIP file via WhatsApp after payment verification</td></tr>
+  </table>`;
+
+  // gallery
+  $$(".gallery-thumbs img").forEach(t=>t.addEventListener("click", ()=>{
+    $$(".gallery-thumbs img").forEach(x=>x.classList.remove("active"));
+    t.classList.add("active");
+    $("#mainImg").src = t.dataset.src;
+  }));
+
+  // qty
+  const setQ = v => { qty = Math.min(Math.max(1, v), 99); $("#qVal").textContent = qty; };
+  $("#qMinus").addEventListener("click", ()=>setQ(qty-1));
+  $("#qPlus").addEventListener("click", ()=>setQ(qty+1));
+
+  $("#addCart").addEventListener("click", ()=>{ Cart.add(p.id, qty); openDrawer(); });
+  $("#buyNow").addEventListener("click", ()=>{ Cart.add(p.id, qty); location.href = "checkout.html"; });
+
+  // related
+  const rel = PRODUCTS.filter(x=>x.id!==p.id && x.category===p.category)
+    .concat(PRODUCTS.filter(x=>x.id!==p.id && x.category!==p.category)).slice(0,4);
+  $("#relatedGrid").innerHTML = rel.map(productCard).join("");
+}
+
+$("#licWa").href = "https://api.whatsapp.com/send?phone=" + STORE.whatsapp +
+  "&text=" + encodeURIComponent("Assalam-o-Alaikum! Mujhe license ke baare mein sawal hai.");
+
+function openLightbox(src){ $("#lightboxImg").src = src; $("#lightbox").classList.add("open"); document.body.style.overflow="hidden"; }
+function closeLightbox(){ $("#lightbox").classList.remove("open"); document.body.style.overflow=""; }
+document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeLightbox(); });
+</script>
+</body>
+</html>
