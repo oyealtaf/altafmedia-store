@@ -27,12 +27,12 @@
     <div class="tab-panel" id="tabLicense">
       <h3 style="margin-bottom:12px">Simple, honest license</h3>
       <ul>
-        <li><b>Personal & commercial use allowed</b> — apne ya client ke projects mein unlimited use karein.</li>
-        <li><b>Resale / redistribution not allowed</b> — source PSD files ko dobara bechna, share karna ya free mein distribute karna mana hai.</li>
-        <li><b>One buyer, one license</b> — files sirf khareedne wale ke use ke liye hain.</li>
-        <li><b>No refund after delivery</b> — digital product hone ki wajah se files milne ke baad refund nahi hota. <a href="terms.html" style="color:var(--brand);font-weight:700">Full policy parhein →</a></li>
+        <li><b>Personal & commercial use allowed</b> — unlimited use in your own or your clients' projects.</li>
+        <li><b>Resale / redistribution not allowed</b> — reselling, sharing or freely distributing the source PSD files is not allowed.</li>
+        <li><b>One buyer, one license</b> — the files are for the buyer's use only.</li>
+        <li><b>No refund after delivery</b> — since this is a digital product, no refund is possible after the files are delivered. <a href="terms.html" style="color:var(--brand);font-weight:700">Read the full policy →</a></li>
       </ul>
-      <p style="margin-top:12px;color:var(--muted)">Koi confusion ho to khareedne se pehle <a href="https://api.whatsapp.com/send?phone=" id="licWa" target="_blank" rel="noopener" style="color:var(--brand);font-weight:700">WhatsApp par pooch lein</a> — khushi se guide karenge.</p>
+      <p style="margin-top:12px;color:var(--muted)">Questions before buying? <a href="https://api.whatsapp.com/send?phone=" id="licWa" target="_blank" rel="noopener" style="color:var(--brand);font-weight:700">Ask us on WhatsApp</a> — we're happy to help.</p>
     </div>
   </div>
 
@@ -47,8 +47,8 @@
       <h2 class="h-section">Before You Buy</h2>
     </div>
     <div class="faq-list">
-      <div class="faq-item"><button class="faq-q">Files kaise milengi?<span class="chev">▼</span></button><div class="faq-a"><p>Payment verify hone ke baad ZIP file aap ke WhatsApp par bhej di jati hai — usually kuch hi ghanton mein.</p></div></div>
-      <div class="faq-item"><button class="faq-q">Kya main ise client ke kaam mein use kar sakta hun?<span class="chev">▼</span></button><div class="faq-a"><p>Ji haan — personal aur commercial dono use allowed hai. Bas source files ko dobara bechna ya share karna allowed nahi.</p></div></div>
+      <div class="faq-item"><button class="faq-q">How will I receive my files?<span class="chev">▼</span></button><div class="faq-a"><p>Your ZIP file is sent to your WhatsApp after payment verification — usually within a few hours.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Can I use it for client work?<span class="chev">▼</span></button><div class="faq-a"><p>Yes — both personal and commercial use are allowed. You just can't resell or share the source files.</p></div></div>
     </div>
   </section>
 </div>
@@ -70,7 +70,7 @@ const id = new URLSearchParams(location.search).get("id");
 const p = getProduct(id);
 
 if(!p){
-  $("#prodLayout").innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="big">😕</div><h3>Product nahi mila</h3><p><a href="shop.html" class="btn btn-primary" style="margin-top:14px">Back to Shop</a></p></div>`;
+  $("#prodLayout").innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="big">😕</div><h3>Product not found</h3><p><a href="shop.html" class="btn btn-primary" style="margin-top:14px">Back to Shop</a></p></div>`;
 } else {
   document.title = p.title + " — AltafMedia Store";
   $("#crumbTitle").textContent = p.title;
@@ -113,7 +113,7 @@ if(!p){
         <span>📁 <b>Format:</b> ${p.details.format} (ZIP download)</span>
         <span>📐 <b>Size:</b> ${p.details.dimensions}</span>
         <span>💳 <b>Payment:</b> JazzCash / Easypaisa / Bank transfer</span>
-        <span>💬 <b>Delivery:</b> WhatsApp par payment verify hone ke baad</span>
+        <span>💬 <b>Delivery:</b> via WhatsApp after payment verification</span>
       </div>
     </div>`;
 
@@ -149,7 +149,7 @@ if(!p){
 }
 
 $("#licWa").href = "https://api.whatsapp.com/send?phone=" + STORE.whatsapp +
-  "&text=" + encodeURIComponent("Assalam-o-Alaikum! Mujhe license ke baare mein sawal hai.");
+  "&text=" + encodeURIComponent("Hello! I have a question about the license.");
 
 function openLightbox(src){ $("#lightboxImg").src = src; $("#lightbox").classList.add("open"); document.body.style.overflow="hidden"; }
 function closeLightbox(){ $("#lightbox").classList.remove("open"); document.body.style.overflow=""; }

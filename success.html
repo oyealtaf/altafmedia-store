@@ -30,28 +30,28 @@ const order = JSON.parse(localStorage.getItem("am_last_order") || "null");
 
 if(!order){
   $("#successWrap").innerHTML = `<div class="empty-state">
-    <div class="big">📦</div><h3>Koi order nahi mila</h3>
+    <div class="big">📦</div><h3>No order found</h3>
     <a href="shop.html" class="btn btn-primary" style="margin-top:18px">Back to Shop →</a></div>`;
 } else {
   $("#successWrap").innerHTML = `
     <div class="success-icon">✓</div>
     <span class="eyebrow gold">✦ Order Received</span>
-    <h1 class="h-section">Shukriya, ${order.name.split(" ")[0]}!</h1>
-    <p class="lead" style="margin:0 auto">Aap ka order ban gaya hai. Ab bas payment send karein aur WhatsApp par confirm karein.</p>
+    <h1 class="h-section">Thank you, ${order.name.split(" ")[0]}!</h1>
+    <p class="lead" style="margin:0 auto">Your order is confirmed. Now just send the payment and confirm on WhatsApp.</p>
 
-    <div class="order-id-box">Aap ka Order ID<br><b>${order.id}</b></div>
+    <div class="order-id-box">Your Order ID<br><b>${order.id}</b></div>
 
     <div class="pay-steps">
-      <h3 style="margin-bottom:6px">💳 Payment kaise karein</h3>
+      <h3 style="margin-bottom:6px">💳 How to pay</h3>
       <ol>
-        <li><b>${fmt(order.total)}</b> exact amount <b>${order.payTitle}</b> par send karein:</li>
+        <li>Send the exact amount of <b>${fmt(order.total)}</b> to <b>${order.payTitle}</b>:</li>
       </ol>
       <div class="pay-num-box">📱 ${order.payNum}</div>
-      ${order.payKey==="binancepay" ? `<div class="note-box" style="margin-top:12px">💡 Binance Pay app mein <b>${fmt(order.total)} ke barabar USDT</b> send karein (Binance ka current rate). Transaction ID / screenshot WhatsApp par bhejna na bhoolein.</div>` : ""}
+      ${order.payKey==="binancepay" ? `<div class="note-box" style="margin-top:12px">💡 Send <b>${fmt(order.total)} worth of USDT</b> in the Binance Pay app (at Binance's current rate). Don't forget to send the transaction ID / screenshot on WhatsApp.</div>` : ""}
       <ol start="2" style="margin-top:14px">
-        <li>Payment ka <b>screenshot</b> save kar lein.</li>
-        <li>Neeche <b>"Confirm on WhatsApp"</b> dabayein — aap ka order message pehle se likha hoga, bas screenshot attach karke send kar dein.</li>
-        <li>Payment verify hote hi aap ki <b>ZIP files WhatsApp par</b> bhej di jayengi. ${STORE.supportNote}</li>
+        <li>Save a <b>screenshot</b> of your payment.</li>
+        <li>Tap <b>"Confirm on WhatsApp"</b> below — your order message is pre-written, just attach the screenshot and send.</li>
+        <li>Once payment is verified, your <b>ZIP files will be sent to your WhatsApp</b>. ${STORE.supportNote}</li>
       </ol>
     </div>
 
@@ -61,7 +61,7 @@ if(!order){
     </div>
 
     <a class="btn btn-whatsapp btn-block" id="waBtn" target="_blank" rel="noopener">💬 Confirm on WhatsApp</a>
-    <p style="margin-top:16px;font-size:14px;color:var(--muted)">Koi sawal ho? <a href="faq.html" style="color:var(--brand);font-weight:700">FAQ parhein</a> ya WhatsApp par poochein.</p>
+    <p style="margin-top:16px;font-size:14px;color:var(--muted)">Any questions? <a href="faq.html" style="color:var(--brand);font-weight:700">Read the FAQ</a> or ask on WhatsApp.</p>
     <a href="shop.html" class="btn btn-outline" style="margin-top:10px">← Continue Shopping</a>`;
 
   $("#waBtn").href = waLink(order);

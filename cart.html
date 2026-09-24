@@ -38,8 +38,8 @@ function renderPage(){
   const wrap = $("#cartWrap");
   if(!items.length){
     wrap.innerHTML = `<div class="empty-state">
-      <div class="big">🛒</div><h3>Cart khaali hai</h3>
-      <p>Shop se apne pasand ke templates add karein.</p>
+      <div class="big">🛒</div><h3>Your cart is empty</h3>
+      <p>Add your favorite templates from the shop.</p>
       <a href="shop.html" class="btn btn-primary" style="margin-top:18px">Browse Templates →</a>
     </div>`;
     return;
@@ -74,7 +74,7 @@ function renderPage(){
       <div class="sum-row"><span>Delivery</span><span style="color:var(--green);font-weight:700">WhatsApp — Free</span></div>
       <div class="sum-row total"><span>Total</span><span>${fmt(sub)}</span></div>
       <a href="checkout.html" class="btn btn-primary btn-block" style="margin-top:18px">Proceed to Checkout →</a>
-      <button class="btn btn-outline btn-block" style="margin-top:10px" onclick="if(confirm('Cart clear kar dein?')){Cart.clear();renderPage();}">Clear Cart</button>
+      <button class="btn btn-outline btn-block" style="margin-top:10px" onclick="if(confirm('Clear the cart?')){Cart.clear();renderPage();}">Clear Cart</button>
     </div>
   </div>`;
 }

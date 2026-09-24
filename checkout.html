@@ -16,7 +16,7 @@
   <div class="container">
     <span class="eyebrow">Almost Done</span>
     <h1 class="h-section" style="font-size:clamp(30px,4.5vw,44px)">Checkout</h1>
-    <p class="lead" style="margin:0 auto">Details likhein, payment method chunein — order turant ban jayega.</p>
+    <p class="lead" style="margin:0 auto">Enter your details, choose a payment method — your order is created instantly.</p>
   </div>
 </div>
 
@@ -39,14 +39,14 @@ const payMeta = {
   jazzcash: { title: P.jazzcash.title, num: P.jazzcash.number, acc: "Account title: " + P.jazzcash.accountName },
   easypaisa:{ title: P.easypaisa.title, num: P.easypaisa.number, acc: "Account title: " + P.easypaisa.accountName },
   bank:     { title: P.bank.title, num: "IBAN: " + P.bank.iban, acc: P.bank.bankName + " — " + P.bank.accountTitle },
-  binancepay:{ title: P.binancepay.title, num: "Pay ID: " + P.binancepay.payId, acc: "USDT only — Binance Pay app se send karein (" + P.binancepay.accountName + ")" }
+  binancepay:{ title: P.binancepay.title, num: "Pay ID: " + P.binancepay.payId, acc: "USDT only — send via the Binance Pay app (" + P.binancepay.accountName + ")" }
 };
 
 function render(){
   const items = Cart.items();
   if(!items.length){
     $("#checkWrap").innerHTML = `<div class="empty-state" style="grid-column:1/-1">
-      <div class="big">🛒</div><h3>Cart khaali hai</h3>
+      <div class="big">🛒</div><h3>Your cart is empty</h3>
       <a href="shop.html" class="btn btn-primary" style="margin-top:18px">Browse Templates →</a></div>`;
     return;
   }
@@ -54,9 +54,9 @@ function render(){
   $("#checkWrap").innerHTML = `
   <div class="form-card">
     <h3>👤 Your Details</h3>
-    <div class="field" id="fName"><label>Full Name *</label><input id="inName" placeholder="e.g. Ahmed Khan"><div class="err">Apna naam likhein</div></div>
-    <div class="field" id="fPhone"><label>Phone / WhatsApp Number *</label><input id="inPhone" inputmode="tel" placeholder="e.g. 0341 7774924"><div class="err">Sahi phone number likhein (kam az kam 10 digits)</div></div>
-    <div class="field" id="fEmail"><label>Email (optional)</label><input id="inEmail" inputmode="email" placeholder="you@example.com"><div class="err">Sahi email likhein</div></div>
+    <div class="field" id="fName"><label>Full Name *</label><input id="inName" placeholder="e.g. Ahmed Khan"><div class="err">Please enter your name</div></div>
+    <div class="field" id="fPhone"><label>Phone / WhatsApp Number *</label><input id="inPhone" inputmode="tel" placeholder="e.g. 0341 7774924"><div class="err">Please enter a valid phone number (at least 10 digits)</div></div>
+    <div class="field" id="fEmail"><label>Email (optional)</label><input id="inEmail" inputmode="email" placeholder="you@example.com"><div class="err">Please enter a valid email</div></div>
 
     <h3 style="margin-top:30px">💳 Payment Method</h3>
     <div id="payOpts">
@@ -66,7 +66,7 @@ function render(){
         <div><b>${payMeta[k].title}</b><div class="num">${payMeta[k].num}</div><div class="acc">${payMeta[k].acc}</div></div>
       </label>`).join("")}
     </div>
-    <div class="note-box">📌 <b>Note:</b> Order place karne ke baad agle page par payment instructions milengi. Exact amount upar diye gaye number par send karna hoga, phir WhatsApp par confirm karein — ${STORE.supportNote}</div>
+    <div class="note-box">📌 <b>Note:</b> After placing your order, you'll get payment instructions on the next page. Send the exact amount to the number shown above, then confirm on WhatsApp — ${STORE.supportNote}</div>
     <button class="btn btn-primary btn-block" id="placeOrder" style="font-size:17px;padding:17px">Place Order →</button>
   </div>
   <div class="cart-summary">
@@ -96,7 +96,7 @@ function render(){
     mark("#fName", name.length < 3);
     mark("#fPhone", phone.length < 10);
     mark("#fEmail", email !== "" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
-    if(!ok){ toast("Please apni details durust karein"); return; }
+    if(!ok){ toast("Please correct your details"); return; }
 
     const payKey = $('input[name="pay"]:checked').value;
     const order = {
