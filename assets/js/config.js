@@ -41,5 +41,5 @@ const STORE = {
     }
   },
 
-  supportNote: "Payment verify hone ke baad files WhatsApp par bhej di jati hain."
+  supportNote: "Your files will be sent to your WhatsApp after payment verification."
 };

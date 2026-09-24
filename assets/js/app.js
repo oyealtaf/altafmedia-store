@@ -36,7 +36,7 @@ const Cart = {
     else items.push({ id, qty });
     this.save(items);
     const p = getProduct(id);
-    toast((p ? p.title : "Product") + " — cart mein add ho gaya ✓");
+    toast((p ? p.title : "Product") + " — added to cart ✓");
   },
   setQty(id, qty){
     let items = this.items();
@@ -100,7 +100,7 @@ function renderFooter(){
         <a class="flink" href="cart.html">My Cart</a>
       </div>
       <div><h4>Contact</h4>
-        <a class="flink" href="https://api.whatsapp.com/send?phone=${STORE.whatsapp}&text=${encodeURIComponent('Assalam-o-Alaikum! Mujhe AltafMedia Store ke baare mein maloomat chahiye.')}" target="_blank" rel="noopener">💬 WhatsApp Support</a>
+        <a class="flink" href="https://api.whatsapp.com/send?phone=${STORE.whatsapp}&text=${encodeURIComponent('Hello! I would like to know more about the AltafMedia Store.')}" target="_blank" rel="noopener">💬 WhatsApp Support</a>
         <a class="flink" href="about.html#contact">📞 Contact details</a>
         <span class="flink" style="cursor:default">🕙 Mon–Sat, 10am–8pm (PKT)</span>
       </div>
@@ -118,7 +118,7 @@ function renderDrawer(){
   if(!box) return;
   const items = Cart.items();
   if(!items.length){
-    box.innerHTML = `<div class="empty-state" style="padding:40px 10px"><div class="big">🛒</div><p><b>Cart khaali hai.</b><br>Shop se apne pasand ke templates add karein.</p></div>`;
+    box.innerHTML = `<div class="empty-state" style="padding:40px 10px"><div class="big">🛒</div><p><b>Your cart is empty.</b><br>Add your favorite templates from the shop.</p></div>`;
   } else {
     box.innerHTML = items.map(i=>{
       const p = getProduct(i.id); if(!p) return "";
@@ -193,10 +193,10 @@ function orderId(){
 function waLink(order){
   const lines = order.items.map(i=>`• ${i.title} x${i.qty} = ${fmt(i.price*i.qty)}`);
   const msg =
-`Assalam-o-Alaikum! Mera order confirm karna hai.
+`Hello! I would like to confirm my order.
 --------------------------
 Order ID: ${order.id}
-Naam: ${order.name}
+Name: ${order.name}
 Phone: ${order.phone}
 --------------------------
 ${lines.join("\n")}
@@ -204,7 +204,7 @@ ${lines.join("\n")}
 Total: ${fmt(order.total)}
 Payment: ${order.payTitle}
 --------------------------
-Payment bhej di hai. Files bhej dein, shukriya!`;
+Payment sent. Please send the files, thank you!`;
   return "https://api.whatsapp.com/send?phone=" + STORE.whatsapp + "&text=" + encodeURIComponent(msg);
 }
 
