@@ -316,3 +316,49 @@ h1,h2,h3{line-height:1.22;letter-spacing:-.02em}
   .form-card{padding:22px}
   .toolbar .btn{width:100%}
 }
+
+/* ============================================================
+   SHOP REDESIGN — psdstores-style sections (original AltafMedia build)
+   ============================================================ */
+
+/* ---------- top utility bar ---------- */
+.topbar{background:#0f1122;color:#c9cde4;font-size:13px;font-weight:600}
+.topbar-inner{display:flex;justify-content:space-between;align-items:center;height:38px;gap:12px}
+.topbar a{color:#fff;font-weight:700}
+.topbar a:hover{text-decoration:underline}
+
+/* ---------- hero (shop style) ---------- */
+.hero-shop{padding:70px 0 60px}
+
+/* ---------- gradient category cards ---------- */
+.cat-grid-shop{grid-template-columns:repeat(5,1fr)}
+.cat-card{border-radius:var(--radius);padding:30px 16px;text-align:center;color:#fff;box-shadow:var(--shadow-sm);transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;overflow:hidden}
+.cat-card::after{content:"";position:absolute;inset:0;background:radial-gradient(220px 120px at 50% -30px,rgba(255,255,255,.25),transparent 70%);pointer-events:none}
+.cat-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.cat-card-emoji{font-size:40px;display:block;margin-bottom:8px;position:relative;z-index:1}
+.cat-card b{display:block;font-size:16px;position:relative;z-index:1}
+.cat-card span{font-size:13px;opacity:.92;position:relative;z-index:1}
+
+/* ---------- product card checkmark bullets ---------- */
+.card-ticks{list-style:none;margin:2px 0 4px;display:grid;gap:5px}
+.card-ticks li{font-size:13px;color:var(--ink-2);font-weight:500;display:flex;align-items:center;gap:8px}
+.card-ticks li::before{content:"☑";color:var(--green);font-size:14px;flex-shrink:0}
+
+/* ---------- promo banner ---------- */
+.promo-wrap{padding:0}
+.promo-banner{position:relative;overflow:hidden;border-radius:22px;background:linear-gradient(120deg,#1e1b4b 0%,#4f46e5 55%,#7c3aed 100%);color:#fff;padding:52px 48px;display:flex;align-items:center;justify-content:space-between;gap:30px;box-shadow:var(--shadow-lg)}
+.promo-banner::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 260px at 85% 20%,rgba(255,255,255,.14),transparent 70%)}
+.promo-text{position:relative;z-index:1;max-width:560px}
+.promo-tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:1.6px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);padding:7px 16px;border-radius:100px;margin-bottom:16px}
+.promo-text h2{font-size:clamp(26px,3.6vw,38px);font-weight:800;margin-bottom:10px}
+.promo-text p{color:rgba(255,255,255,.85);font-size:16px;margin-bottom:24px}
+.promo-badge{position:relative;z-index:1;flex-shrink:0;width:130px;height:130px;border-radius:50%;background:linear-gradient(135deg,#fbbf24,#f59e0b);display:flex;align-items:center;justify-content:center;font-size:64px;font-weight:800;color:#3b2f04;box-shadow:0 18px 44px rgba(0,0,0,.28);transform:rotate(-8deg)}
+
+@media(max-width:1020px){
+  .cat-grid-shop{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:720px){
+  .cat-grid-shop{grid-template-columns:repeat(2,1fr)}
+  .promo-banner{flex-direction:column;text-align:center;padding:40px 28px}
+  .topbar-inner{font-size:12px}
+}
