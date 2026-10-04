@@ -11,12 +11,20 @@
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<!-- TOP UTILITY BAR -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>✦ Premium PSD Templates — Instant delivery on WhatsApp</span>
+    <a href="https://api.whatsapp.com/send?phone=923001234567&text=Hello!%20I%20have%20a%20question%20about%20the%20AltafMedia%20Store." target="_blank" rel="noopener" id="topbarWa">💬 Chat with us</a>
+  </div>
+</div>
+
 <header class="site-header"></header>
 
 <!-- HERO -->
-<div class="hero">
+<div class="hero hero-shop">
   <div class="container hero-inner">
-    <span class="eyebrow gold">✦ Premium Design Templates</span>
+    <span class="eyebrow gold">✦ The #1 Source of Premium PSD Templates</span>
     <h1 class="h-display">Stunning <span class="grad-text">PSD Templates</span><br>for Creators & Businesses</h1>
     <p class="lead">Fully-layered, print-ready Photoshop templates — YouTube thumbnails, Instagram posts, flyers, menus and more. Pay with JazzCash, Easypaisa or Binance Pay, and get your files on WhatsApp.</p>
     <form class="searchbar" id="heroSearch">
@@ -24,13 +32,13 @@
       <button class="btn btn-primary" type="submit">Search</button>
     </form>
     <div class="hero-ctas">
-      <a href="shop.html" class="btn btn-outline">Browse All Templates</a>
+      <a href="shop.html" class="btn btn-primary">🛍️ Browse All Templates</a>
       <a href="#how" class="btn btn-outline">How It Works</a>
     </div>
     <div class="hero-stats">
+      <div class="stat"><b>27+</b><span>Premium Template Packs</span></div>
       <div class="stat"><b>100%</b><span>Layered PSD Files</span></div>
       <div class="stat"><b>⚡ Fast</b><span>WhatsApp Delivery</span></div>
-      <div class="stat"><b>🇵🇰 Local</b><span>JazzCash / Easypaisa / Binance Pay</span></div>
     </div>
   </div>
 </div>
@@ -43,11 +51,26 @@
       <h2 class="h-section">Shop by Category</h2>
       <p class="lead">Ready-made professional designs for every need.</p>
     </div>
-    <div class="cat-grid" id="catGrid"></div>
+    <div class="cat-grid cat-grid-shop" id="catGrid"></div>
   </div>
 </section>
 
-<!-- FEATURED -->
+<!-- PROMO BANNER -->
+<section class="promo-wrap">
+  <div class="container">
+    <div class="promo-banner">
+      <div class="promo-text">
+        <span class="promo-tag">LIMITED TIME</span>
+        <h2>Big Savings on Selected Packs</h2>
+        <p>Discounted prices on bestselling template packs across every category. Grab your favorites before the offer ends.</p>
+        <a href="shop.html" class="btn btn-gold">Shop the Sale →</a>
+      </div>
+      <div class="promo-badge">%</div>
+    </div>
+  </div>
+</section>
+
+<!-- BESTSELLERS -->
 <section class="section-soft">
   <div class="container">
     <div class="center">
@@ -62,8 +85,20 @@
   </div>
 </section>
 
+<!-- NEW ARRIVALS -->
+<section>
+  <div class="container">
+    <div class="center">
+      <span class="eyebrow">🆕 Just Added</span>
+      <h2 class="h-section">New Arrivals</h2>
+      <p class="lead">Fresh designs, just dropped in the store.</p>
+    </div>
+    <div class="prod-grid" id="newGrid"></div>
+  </div>
+</section>
+
 <!-- HOW IT WORKS -->
-<section id="how">
+<section id="how" class="section-soft">
   <div class="container">
     <div class="center">
       <span class="eyebrow">Simple Process</span>
@@ -91,7 +126,7 @@
 </section>
 
 <!-- TRUST -->
-<section class="section-soft">
+<section>
   <div class="container">
     <div class="center">
       <span class="eyebrow gold">✦ Why AltafMedia</span>
@@ -100,14 +135,14 @@
     <div class="trust">
       <div class="trust-item"><span class="t-icon">⚡</span><div><b>Fast WhatsApp Delivery</b><span>Files sent to your WhatsApp once payment is verified.</span></div></div>
       <div class="trust-item"><span class="t-icon">🎨</span><div><b>100% Layered PSDs</b><span>Every text, shape and effect on its own layer — full edit freedom.</span></div></div>
-      <div class="trust-item"><span class="t-icon">💳</span><div><b>Easy Local Payment</b><span>JazzCash, Easypaisa, bank transfer aur Binance Pay accepted.</span></div></div>
+      <div class="trust-item"><span class="t-icon">💳</span><div><b>Easy Local Payment</b><span>JazzCash, Easypaisa, bank transfer and Binance Pay accepted.</span></div></div>
       <div class="trust-item"><span class="t-icon">💬</span><div><b>Human Support</b><span>Talk to us directly on WhatsApp if you need help.</span></div></div>
     </div>
   </div>
 </section>
 
 <!-- FAQ TEASER -->
-<section>
+<section class="section-soft">
   <div class="container">
     <div class="center">
       <span class="eyebrow">Common Questions</span>
@@ -130,16 +165,32 @@
 <script>
 boot("Home");
 
-// category tiles
-$("#catGrid").innerHTML = CATEGORIES.map(c=>{
-  const n = PRODUCTS.filter(p=>p.category===c).length;
-  return `<a class="cat-tile" href="shop.html?cat=${encodeURIComponent(c)}">
-    <span class="emoji">${catEmoji[c]||"🎨"}</span><b>${c}</b><span>${n} template${n!==1?"s":""}</span>
-  </a>`;
-}).join("");
+const CAT_STYLE = {
+  "Thumbnails":  { emoji: "🖼️", grad: "linear-gradient(135deg,#ef4444,#f97316)" },
+  "Social Media":{ emoji: "📱", grad: "linear-gradient(135deg,#ec4899,#8b5cf6)" },
+  "Print Flyers":{ emoji: "📰", grad: "linear-gradient(135deg,#3b82f6,#06b6d4)" },
+  "Branding":    { emoji: "🎨", grad: "linear-gradient(135deg,#6366f1,#a855f7)" },
+  "Events":      { emoji: "🎉", grad: "linear-gradient(135deg,#f59e0b,#ef4444)" }
+};
 
-// featured products
-$("#featuredGrid").innerHTML = PRODUCTS.filter(p=>p.featured).map(productCard).join("");
+function renderHome(){
+  // category tiles
+  $("#catGrid").innerHTML = CATEGORIES.map(c=>{
+    const n = PRODUCTS.filter(p=>p.category===c).length;
+    const s = CAT_STYLE[c] || { emoji:"🎨", grad:"linear-gradient(135deg,#4f46e5,#7c3aed)" };
+    return `<a class="cat-card" href="shop.html?cat=${encodeURIComponent(c)}" style="background:${s.grad}">
+      <span class="cat-card-emoji">${s.emoji}</span>
+      <b>${c}</b><span>${n} template${n!==1?"s":""}</span>
+    </a>`;
+  }).join("");
+
+  // featured + new arrivals
+  $("#featuredGrid").innerHTML = PRODUCTS.filter(p=>p.featured).map(productCard).join("");
+  const fresh = PRODUCTS.filter(p=>p.badge==="New");
+  $("#newGrid").innerHTML = (fresh.length ? fresh : PRODUCTS.slice(-4)).map(productCard).join("");
+}
+renderHome();
+window.addEventListener("am-products-ready", renderHome);
 
 // hero search → shop
 $("#heroSearch").addEventListener("submit", e=>{
@@ -147,6 +198,11 @@ $("#heroSearch").addEventListener("submit", e=>{
   const q = $("#heroQ").value.trim();
   location.href = "shop.html" + (q ? "?q="+encodeURIComponent(q) : "");
 });
+
+// topbar WhatsApp number from config
+document.getElementById("topbarWa").href =
+  "https://api.whatsapp.com/send?phone=" + STORE.whatsapp +
+  "&text=" + encodeURIComponent("Hello! I have a question about the AltafMedia Store.");
 </script>
 </body>
 </html>

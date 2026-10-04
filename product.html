@@ -67,6 +67,8 @@
 boot("Shop");
 
 const id = new URLSearchParams(location.search).get("id");
+
+function renderProduct(){
 const p = getProduct(id);
 
 if(!p){
@@ -147,6 +149,9 @@ if(!p){
     .concat(PRODUCTS.filter(x=>x.id!==p.id && x.category!==p.category)).slice(0,4);
   $("#relatedGrid").innerHTML = rel.map(productCard).join("");
 }
+}
+renderProduct();
+window.addEventListener("am-products-ready", renderProduct);
 
 $("#licWa").href = "https://api.whatsapp.com/send?phone=" + STORE.whatsapp +
   "&text=" + encodeURIComponent("Hello! I have a question about the license.");

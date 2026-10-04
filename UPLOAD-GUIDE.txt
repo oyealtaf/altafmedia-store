@@ -1,0 +1,31 @@
+ALTAFMEDIA STORE — SITE UPDATE GUIDE (Roman Urdu)
+==================================================
+
+IS ZIP ME KYA HAI:
+- index.html, shop.html, product.html  → site ke main pages (naya design)
+- assets/css/style.css                  → naya design
+- assets/js/products.js                 → 27 naye products + Google Sheet system
+- assets/js/app.js                      → product cards me checkmarks
+- assets/img/products/ (27 images)      → sab products ki nayi cover images
+- products-template.csv                 → Google Sheet banane ke liye (neeche step 2)
+
+STEP 1 — FILES GITHUB PAR DALNA (4 drag-drop):
+1. github.com/oyealtaf/altafmedia-store kholo (login: oyealtaf302@gmail.com)
+2. "Add file" → "Upload files" dabao, phir:
+   a) index.html, shop.html, product.html — repo ke main page par drag karo
+   b) assets/js/ folder kholo → products.js, app.js drag karo
+   c) assets/css/ folder kholo → style.css drag karo
+   d) assets/img/products/ folder kholo → 27 images drag karo
+3. Har dafa neeche "Commit changes" dabana mat bhoolna!
+
+STEP 2 — GOOGLE SHEET (easy product management, sirf ek dafa):
+1. Phone par Google Sheets app kholo → naya spreadsheet banao
+2. Is zip wali products-template.csv ko import karo
+   (Sheets app → + → Import → file select karo)
+   YA: laptop par sheets.google.com → File → Import → Upload
+3. Sheet ka naam "Products" rakho (pehla tab)
+4. Share → "Anyone with the link can view" karo
+5. Link Lotus ko bhejo — wo site me laga dega
+6. Uske baad: Sheet me price/name edit karo = site par khud update!
+
+NOTE: Sheet lagne tak site pehle se wale 27 products dikhayegi — kuch khaali nahi hoga.

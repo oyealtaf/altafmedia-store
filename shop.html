@@ -105,6 +105,7 @@ $("#sort").addEventListener("change", e=>{ state.sort = e.target.value; renderGr
 
 renderPills();
 renderGrid();
+window.addEventListener("am-products-ready", ()=>{ renderPills(); renderGrid(); });
 </script>
 </body>
 </html>
