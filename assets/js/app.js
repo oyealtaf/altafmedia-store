@@ -172,7 +172,11 @@ function productCard(p){
     <div class="card-body">
       <span class="card-cat">${p.category}</span>
       <a class="card-title" href="product.html?id=${p.id}">${p.title}</a>
-      <p class="card-short">${p.short}</p>
+      <ul class="card-ticks">
+        <li>Layered & fully editable PSD</li>
+        <li>Instant WhatsApp delivery</li>
+        <li>Fonts included</li>
+      </ul>
       <div class="card-foot">
         <span class="price">${fmt(p.price)}${p.oldPrice?`<span class="old">${fmt(p.oldPrice)}</span>`:""}</span>
       </div>
